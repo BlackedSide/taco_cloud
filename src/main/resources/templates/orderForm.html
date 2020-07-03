@@ -1,0 +1,72 @@
+<!-- tag::allButValidation[] -->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Complete Your Order</title>
+    <link rel="stylesheet" th:href="@{/styles.css}"/>
+</head>
+
+<body>
+
+<form method="POST" th:action="@{/orders}" th:object="${order}">
+    <h1>Order your taco creations!</h1>
+
+    <div th:if="${#fields.hasErrors()}">
+        <span class="validationError">
+        Please correct the problems below and resubmit.
+        </span>
+    </div>
+
+    <h3>Deliver my taco masterpieces to...</h3>
+    <label>Name: </label>
+    <input type="text" th:field="*{name}"/>
+    <span class="validationError"
+          th:if="${#fields.hasErrors('name')}"
+          th:errors="*{name}">Name Error</span>
+    <!-- end::allButValidation[] -->
+    <!-- tag::allButValidation[] -->
+    <br/>
+
+    <label>Street address: </label>
+    <input type="text" th:field="*{street}"/>
+    <span class="validationError"
+          th:if="${#fields.hasErrors('street')}"
+          th:errors="*{street}">Street Error</span>
+    <!-- end::allButValidation[] -->
+    <!-- tag::allButValidation[] -->
+    <br/>
+
+    <label>City: </label>
+    <input type="text" th:field="*{city}"/>
+    <span class="validationError"
+          th:if="${#fields.hasErrors('city')}"
+          th:errors="*{city}">City Error</span>
+    <!-- end::allButValidation[] -->
+    <!-- tag::allButValidation[] -->
+    <br/>
+
+    <label>Province: </label>
+    <input type="text" th:field="*{province}"/>
+    <span class="validationError"
+          th:if="${#fields.hasErrors('province')}"
+          th:errors="*{province}">Province Error</span>
+    <!-- end::allButValidation[] -->
+    <!-- tag::allButValidation[] -->
+    <br/>
+
+    <label>Zip code: </label>
+    <input type="text" th:field="*{zip}"/>
+    <span class="validationError"
+          th:if="${#fields.hasErrors('zip')}"
+          th:errors="*{zip}">Zip Error</span>
+    <!-- end::allButValidation[] -->
+    <!-- tag::allButValidation[] -->
+    <br/>
+
+    <input type="submit" value="Submit order"/>
+</form>
+
+</body>
+</html>
+<!-- end::allButValidation[] -->
