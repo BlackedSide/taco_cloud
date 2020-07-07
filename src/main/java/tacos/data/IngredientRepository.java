@@ -1,10 +1,11 @@
 package tacos.data;
 
+import org.springframework.data.repository.CrudRepository;
 import tacos.bean.Ingredient;
 
-public interface IngredientRepository {
+/**
+ * 扩展CrudRepository接口，第一个参数是repository要持久化的实体类型，第二个参数是实体ID属性的类型
+ */
+public interface IngredientRepository extends CrudRepository<Ingredient, String> {
 
-    Iterable<Ingredient> findAll();
-    Ingredient findById(String id);
-    Ingredient save(Ingredient ingredient);
 }
