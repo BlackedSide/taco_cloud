@@ -8,10 +8,13 @@ import org.springframework.web.bind.annotation.*;
 import tacos.bean.Ingredient;
 import tacos.bean.Order;
 import tacos.bean.Taco;
+import tacos.bean.User;
 import tacos.data.IngredientRepository;
 import tacos.data.TacoRepository;
+import tacos.data.UserRepository;
 
 import javax.validation.Valid;
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -24,11 +27,13 @@ public class DesignTacoController {
 
     private final IngredientRepository ingredientRepository;
     private final TacoRepository tacoRepository;
+    private final UserRepository userRepository;
 
     @Autowired
-    public DesignTacoController(IngredientRepository ingredientRepository, TacoRepository tacoRepository) {
+    public DesignTacoController(IngredientRepository ingredientRepository, TacoRepository tacoRepository, UserRepository userRepository) {
         this.ingredientRepository = ingredientRepository;
         this.tacoRepository = tacoRepository;
+        this.userRepository = userRepository;
     }
 
     @ModelAttribute("taco")
@@ -42,7 +47,7 @@ public class DesignTacoController {
     }
 
     @GetMapping
-    public String showDesignForm(Model model) {
+    public String showDesignForm(Model model, Principal principal) {
 //        List<Ingredient> ingredients = Arrays.asList(
 //                new Ingredient("FLTO", "Flour Tortilla", Ingredient.Type.WRAP),
 //                new Ingredient("COTO", "Corn Tortilla", Ingredient.Type.WRAP),
@@ -71,6 +76,10 @@ public class DesignTacoController {
         for (Ingredient.Type type : types) {
             model.addAttribute(type.toString().toLowerCase(), filterByType(ingredients, type));
         }
+
+        String username = principal.getName();
+        User user = userRepository.findByUsername(username);
+        model.addAttribute("user", user);
 
         return "design";
     }

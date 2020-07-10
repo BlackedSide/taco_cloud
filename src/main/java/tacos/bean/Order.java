@@ -21,6 +21,9 @@ public class Order implements Serializable {
     private Long id;
     private Date createdAt;
 
+    @ManyToOne
+    private User user;
+
     @NotBlank(message = "Name is required")
     private String name;
     @NotBlank(message = "Street is required")
